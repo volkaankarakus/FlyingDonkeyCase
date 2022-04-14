@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "60516389045",
+    "project_id": "flyingdonkeytasklast",
+    "storage_bucket": "flyingdonkeytasklast.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:60516389045:android:54df8852e252268b656efc",
+        "android_client_info": {
+          "package_name": "com.example.flyingdonkeylasttask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "60516389045-v65r8gvj91pqfecgq7gh36pv26r712ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJDsMMR11RScvvbCNhVN27X_aa3Wy1mlY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "60516389045-v65r8gvj91pqfecgq7gh36pv26r712ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
