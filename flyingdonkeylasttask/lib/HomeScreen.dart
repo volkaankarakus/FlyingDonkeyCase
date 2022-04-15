@@ -11,6 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flyingdonkeylasttask/api/FirebaseApi.dart';
 import 'package:flyingdonkeylasttask/model/FirebaseFile.dart';
 import 'package:flyingdonkeylasttask/page/ImageScreen.dart';
+import 'package:flyingdonkeylasttask/const/Colors.dart' as colors;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -46,21 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: (){
+            onPressed: () {
               Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                      builder: (BuildContext context) => super.widget));},
+                      builder: (BuildContext context) => super.widget));
+            },
             icon: Icon(Icons.refresh),
           ),
         ],
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Color(0xFF212121),Color(0xFF303030)],
-                begin: Alignment.bottomRight,
-                end : Alignment.topLeft
-            ),
+            gradient: LinearGradient(colors: [
+              colors.AppColor.AppbarFirstGradient,
+              colors.AppColor.AppbarSecondGradient
+            ], begin: Alignment.bottomRight, end: Alignment.topLeft),
           ),
         ),
         elevation: 20,
@@ -79,7 +80,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                   return Container(
                     decoration: BoxDecoration(
-                        color: Color(0xFFEEEEEE)
+                      color: colors.AppColor.BackgroundColor,
                     ),
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -129,20 +130,21 @@ class _HomeScreenState extends State<HomeScreen> {
                           Container(
                             child: Row(
                                 mainAxisAlignment:
-                                MainAxisAlignment.spaceEvenly,
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Container(
                                     child: ElevatedButton.icon(
                                       icon: Icon(
                                         Icons.upload_file,
-                                        color: Colors.white,
+                                        color: colors.AppColor.IconAppStorage,
                                         size: 24,
                                       ),
                                       label: Text('appStorage',
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white)),
+                                              color: colors
+                                                  .AppColor.TextAppStorage)),
                                       style: ElevatedButton.styleFrom(
                                         elevation: 10,
                                         shape: RoundedRectangleBorder(
@@ -153,14 +155,14 @@ class _HomeScreenState extends State<HomeScreen> {
                                       onPressed: () async {
                                         final file = result!.files.first;
                                         final savedFile =
-                                        await saveFilePermanently(file);
+                                            await saveFilePermanently(file);
                                         final oldPath = file.path!;
                                         final newPath = savedFile.path;
                                         print('From path : $oldPath');
                                         print('To path : $newPath');
                                         final snackBar = SnackBar(
                                           content:
-                                          Text('Uploaded to appStorage.'),
+                                              Text('Uploaded to appStorage.'),
                                         );
                                         ScaffoldMessenger.of(context)
                                             .showSnackBar(snackBar);
@@ -171,14 +173,16 @@ class _HomeScreenState extends State<HomeScreen> {
                                     ElevatedButton.icon(
                                       icon: Icon(
                                         Icons.cloud_upload,
-                                        color: Colors.white,
+                                        color:
+                                            colors.AppColor.IconFirebaseStorage,
                                         size: 24,
                                       ),
                                       label: Text('Firebase',
                                           style: TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold,
-                                              color: Colors.white)),
+                                              color: colors.AppColor
+                                                  .TextFirebaseStorage)),
                                       style: ElevatedButton.styleFrom(
                                         elevation: 10,
                                         shape: RoundedRectangleBorder(
@@ -210,47 +214,41 @@ class _HomeScreenState extends State<HomeScreen> {
             }
           }));
 
-
-
   Widget buildHeader(int length) => Container(
-    decoration: BoxDecoration(
-        color: Color(0xDD000000),
-        borderRadius: BorderRadius.only(bottomRight: Radius.circular(22.0))
-    ),
-
-    child: ListTile(
-      leading: Container(
-        width: 52,
-        height: 52,
-        child: Icon(
-          Icons.file_copy,
-          color: Color(0xFFFFFFFF),
+        decoration: BoxDecoration(
+            color: Color(0xDD000000),
+            borderRadius:
+                BorderRadius.only(bottomRight: Radius.circular(22.0))),
+        child: ListTile(
+          leading: Container(
+            width: 52,
+            height: 52,
+            child: Icon(
+              Icons.file_copy,
+              color: Color(0xFFFFFFFF),
+            ),
+          ),
+          title: Text(
+            '$length Files',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 20,
+              color: Color(0x4DFFFFFF),
+            ),
+          ),
         ),
-      ),
-      title: Text(
-        '$length Files',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 20,
-          color: Color(0x4DFFFFFF),
-        ),
-      ),
-    ),
-  );
-
+      );
 
   Widget buildFileDownload(BuildContext context, FirebaseFile file) =>
-
       Container(
         padding: EdgeInsets.all(8),
         margin: EdgeInsets.all(8),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           gradient: LinearGradient(
-              colors: [Color(0xFF424242),Color(0XFF212121)],
+              colors: [Color(0xFF424242), Color(0XFF212121)],
               begin: Alignment.topLeft,
-              end: Alignment.bottomRight
-          ),
+              end: Alignment.bottomRight),
         ),
         child: ListTile(
           leading: ClipOval(
@@ -273,6 +271,7 @@ class _HomeScreenState extends State<HomeScreen> {
           )),
         ),
       );
+
   Future<void> pickFiles(String? filetype) async {
     switch (filetype) {
       case 'Image':
@@ -313,27 +312,27 @@ class _HomeScreenState extends State<HomeScreen> {
       child: ListTile(
         leading: (file.extension == 'jpg' || file.extension == 'png')
             ? Image.file(
-          File(file.path.toString()),
-          width: 80,
-          height: 80,
-        )
+                File(file.path.toString()),
+                width: 80,
+                height: 80,
+              )
             : Container(
-          alignment: Alignment.center,
-          width: 80,
-          height: 80,
-          decoration: BoxDecoration(
-            color: Color(0xFF424242),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Text(
-            '.${file.extension}',
-            style: TextStyle(
-              fontSize: 28,
-              fontWeight: FontWeight.bold,
-              color: Colors.white,
-            ),
-          ),
-        ),
+                alignment: Alignment.center,
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: colors.AppColor.ContainerUploadExtension,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Text(
+                  '.${file.extension}',
+                  style: TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                    color: colors.AppColor.TextUploadExtension,
+                  ),
+                ),
+              ),
         title: Text('${file.name}'),
         subtitle: Text('${file.extension}'),
         trailing: Text(
@@ -373,33 +372,35 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget buildUploadStatus(UploadTask task) => StreamBuilder<TaskSnapshot>(
-    stream: task.snapshotEvents,
-    builder: (context, snapshot) {
-      if (snapshot.hasData) {
-        final snap = snapshot.data!;
-        final progress = snap.bytesTransferred / snap.totalBytes;
-        final percentage = (progress * 100).toStringAsFixed(2);
+        stream: task.snapshotEvents,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            final snap = snapshot.data!;
+            final progress = snap.bytesTransferred / snap.totalBytes;
+            final percentage = (progress * 100).toStringAsFixed(2);
 
-        return Column(
-          children: [
-            '$percentage%' != '100.00%'
-                ? Text(
-              '$percentage%',
-              style: TextStyle(
-                  fontSize: 16, fontWeight: FontWeight.bold),
-            )
-                : Container(
-              child: Icon(
-                Icons.check,
-                color: Color(0xFF616161),
-                size: 24,
-              ),
-            ),
-          ],
-        );
-      } else {
-        return Container();
-      }
-    },
-  );
+            return Column(
+              children: [
+                '$percentage%' != '100.00%'
+                    ? Text(
+                        '$percentage%',
+                        style: TextStyle(
+                            color: colors.AppColor.TextUploadPercentage,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      )
+                    : Container(
+                        child: Icon(
+                          Icons.check,
+                          color: colors.AppColor.IconUploadedCheck,
+                          size: 24,
+                        ),
+                      ),
+              ],
+            );
+          } else {
+            return Container();
+          }
+        },
+      );
 }

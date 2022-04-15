@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flyingdonkeylasttask/api/FirebaseApi.dart';
 import 'package:flyingdonkeylasttask/model/FirebaseFile.dart';
+import 'package:flyingdonkeylasttask/const/Colors.dart' as colors;
 
 class ImageScreen extends StatelessWidget {
   final FirebaseFile file;
@@ -12,7 +13,7 @@ class ImageScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isImage = ['.jpeg', '.jpg', '.png','webp'].any(file.name.contains);
+    final isImage = ['.jpeg', '.jpg', '.png', 'webp'].any(file.name.contains);
 
     return Scaffold(
       appBar: AppBar(
@@ -20,17 +21,19 @@ class ImageScreen extends StatelessWidget {
         centerTitle: true,
         flexibleSpace: Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-                colors: [Color(0xFF212121),Color(0xFF303030)],
-                begin: Alignment.bottomRight,
-                end : Alignment.topLeft
-            ),
+            gradient: LinearGradient(colors: [
+              colors.AppColor.AppbarFirstGradient,
+              colors.AppColor.AppbarSecondGradient
+            ], begin: Alignment.bottomRight, end: Alignment.topLeft),
           ),
         ),
         elevation: 20,
         actions: [
           IconButton(
-            icon: Icon(Icons.file_download),
+            icon: Icon(
+              Icons.file_download,
+              color: colors.AppColor.IconDownload,
+            ),
             onPressed: () async {
               await FirebaseApi.downloadFile(file.ref);
 
@@ -44,16 +47,19 @@ class ImageScreen extends StatelessWidget {
       ),
       body: isImage
           ? Image.network(
-        file.url,
-        width: double.infinity,
-        fit: BoxFit.cover,
-      )
+              file.url,
+              width: double.infinity,
+              fit: BoxFit.cover,
+            )
           : Center(
-        child: Text(
-          'Cannot be displayed',
-          style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-        ),
-      ),
+              child: Text(
+                'Cannot be displayed',
+                style: TextStyle(
+                    color: colors.AppColor.TextDisplayError,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
     );
   }
 }
