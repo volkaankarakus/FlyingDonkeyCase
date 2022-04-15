@@ -1,16 +1,19 @@
-# flyingdonkeylasttask
+# Flying Donkey Case Study
 
-A new Flutter project.
+- You can choose the file format.
 
-## Getting Started
+- While uploading the selected file, the file format and size are displayed.
 
-This project is a starting point for a Flutter application.
+- The uploaded file can be previewed. 
 
-A few resources to get you started if this is your first Flutter project:
+- The selected file can be uploaded to both appStorage and FirebaseStorage.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- If the file is uploaded to Firebase Storage, the file is added to the list as a new element after the page is refreshed.
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- List elements can be previewed and downloaded if they are in any image format.
+
+- PlatformFile and FirebaseFile incompatibility for other formats on the list will be resolved over time.
+
+- Font and interface development will be done over time.
+
+- Since I don't know any architectural structure, I tried to write the code as clean as possible.
